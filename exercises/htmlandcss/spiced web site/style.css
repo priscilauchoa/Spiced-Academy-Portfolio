@@ -79,23 +79,34 @@ h3 {
 
 img[alt="icon"] {
     width: 50px;
-    margin: 0px 20px;
+    margin: 0px 35px;
+    position: absolute;
 }
 
 .about {
     width: 100%;
     display: table;
-    /* padding: 30px; */
+    height: 200px;
     background-color: #cccccc;
-    margin-top: -10;
+    padding: 10;
     /* position: absolute;
     top: 58%; */
+}
+.about:nth-child(2) {
+    padding: 50px;
+}
+.about:nth-child(3) {
+    padding: 70px 0;
 }
 aside {
     /* display: inline-flex; */
     width: 100%;
     display: table;
 }
+aside > div {
+    position: relative;
+}
+
 .pseudo-cell {
     width: 50%;
     display: table-cell;
@@ -103,17 +114,19 @@ aside {
 }
 
 .second {
-    text-align: right;
+    text-align: left;
 }
 
 p {
     margin: 0;
     color: black;
+    position: absolute;
+    left: 20%;
 }
 
 footer {
     background-color: #666666;
-    font-size: 10px;
+    font-size: 14px;
     padding: 8px 30px;
     position: relative;
     width: 100%;
@@ -139,12 +152,28 @@ footer {
     }
     .about {
         display: block;
+        height: 33vh;
     }
     .pseudo-cell {
         width: 100%;
         display: block;
         margin: 0;
         padding: 30px;
-        text-align: center;
+        padding: 55px 32px;
+    }
+    img[alt="icon"] {
+        width: 50px;
+        margin: 0;
+        position: absolute;
+    }
+    .about:nth-child(3) {
+        padding: 39px 0;
+    }
+    footer {
+        height: 6vh;
+        padding: 17px 30px;
+    }
+    .spices {
+        height: 27vh;
     }
 }
