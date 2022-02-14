@@ -4,7 +4,7 @@ function insertElement() {
     var newElement = document.createElement("DIV");
     // document.createTextNode();
     newElement.style.position = "fixed";
-    newElement.style.color = "white";
+    // newElement.style.color = "white";
     newElement.style.zIndex = "2147483647";
     newElement.style.left = "20px";
     newElement.style.top = "100px";
