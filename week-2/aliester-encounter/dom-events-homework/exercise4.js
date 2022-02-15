@@ -1,29 +1,26 @@
 var square = document.getElementById("square");
+var smallSquare = document.getElementById("small-square");
 
 function randomColor() {
-    var arr = [];
     var a = Math.floor(Math.random() * 256);
     var b = Math.floor(Math.random() * 256);
     var c = Math.floor(Math.random() * 256);
-    arr.push(a, b, c);
-    return arr;
+    return [a, b, c];
 }
-
-console.log(randomColor());
 
 var colors;
 
-square.addEventListener("mousedown", function () {
+square.addEventListener("click", function () {
+    console.log(" big");
     colors = randomColor();
-
-    console.log(colors);
+    console.log("aqui", colors);
     square.style.backgroundColor =
         "rgb(" + colors[0] + "," + colors[1] + "," + colors[2] + ")";
 });
-
-square.addEventListener("mouseup", function () {
+smallSquare.addEventListener("click", function () {
+    event.stopPropagation();
     colors = randomColor();
-    console.log(colors);
-    square.style.backgroundColor =
+    console.log("small");
+    smallSquare.style.backgroundColor =
         "rgb(" + colors[0] + "," + colors[1] + "," + colors[2] + ")";
 });
