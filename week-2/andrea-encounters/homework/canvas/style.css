@@ -1,3 +1,10 @@
 #canvas {
-    border: 1px solid black;
+    position: absolute;
+    z-index: 2;
+}
+#big-canvas {
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Foasisevents.co.uk%2Fwp-content%2Fuploads%2F2018%2F12%2FAL_BarnPartyNaunton_168.jpg&f=1&nofb=1");
+    position: absolute;
+    background-size: cover;
+    z-index: 1;
 }
