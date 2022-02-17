@@ -1,0 +1,53 @@
+body {
+    display: flex;
+    justify-content: space-around;
+}
+
+.out-size {
+    width: 100px;
+    height: 100px;
+}
+
+.inside-size {
+    width: 50px;
+    height: 50px;
+}
+
+.out1 {
+    background-color: gray;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.inside1 {
+    background-color: orange;
+}
+
+.out2 {
+    background-color: black;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.inside2 {
+    background-color: yellow;
+}
+
+.out3 {
+    background-color: blue;
+    display: flex;
+    align-items: flex-end;
+}
+
+.inside3 {
+    background-color: green;
+}
+
+.out4 {
+    background-color: purple;
+}
+
+.inside4 {
+    background-color: pink;
+}
