@@ -3,33 +3,47 @@
     var kitties = document.querySelectorAll("#kitties img");
     var currentKitty = 0;
 
+    // console.log(currentKitty);
     container.addEventListener("transitionend", function (e) {
         if (e.target.classList.contains("exit")) {
             e.target.classList.remove("exit");
             setTimeout(moveKitties, 1000);
         }
     });
-    // console.log("here", kittie[0]);
-
-    // event delegation
-    //
 
     function moveKitties() {
-        // remove onscreen class from kitty at current index
-        //add exit class from kitty at current index
-        console.log("the currrent is ", currentKitty);
+        kitties[currentKitty].classList.remove("onscreen");
+        // console.log("no contains");
+        kitties[currentKitty].classList.add("exit");
         currentKitty++;
-        console.log("now the currrent is ", currentKitty);
 
-        //add the onscreen class to kitty at the new current index
-        // usar setTimeout 5seconds
-        // colocar um if e  um chamar de novo toda vez que o kitty.legth acabou e comecar de novo
         if (currentKitty == kitties.length) {
             currentKitty = 0;
         }
+        kitties[currentKitty].classList.add("onscreen");
+
+        // if (kitties[currentKitty].classList.contains("onscreen")) {
+        //     // console.log("contains");
+
+        //     console.log(kitties[currentKitty]);
+        //     // console.log("contains exit");
+        //     console.log(currentKitty);
+
+        //     // remove onscreen class from kitty at current index
+        //     //add exit class from kitty at current index
+        //     // console.log("the current is ", currentKitty);
+        //     // console.log("now the currrent is ", currentKitty);
+        // }
         // setTimeout(moveKitties, 1000);
+        //add the onscreen class to kitty at the new current index
+        // usar setTimeout 5seconds
+        // colocar um if e  um chamar de novo toda vez que o kitty.legth acabou e comecar de novo
+
+        // setTimeout(moveKitties, 1000);?
     }
 
     setTimeout(moveKitties, 1000);
+    // console.log("here");
     // kittie[0].classList.add("exit");
+    // event delegation
 })();
