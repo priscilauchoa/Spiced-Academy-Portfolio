@@ -10,7 +10,7 @@
 
     kitBtn1.addEventListener("mousedown", function (e) {
         e.target.style.backgroundColor = "white";
-        setTimeout(moveKitties, 10);
+        setTimeout(moveKitties, 1000);
         kitBtn1.addEventListener("mouseup", function (e) {
             e.target.style.backgroundColor = "";
         });
