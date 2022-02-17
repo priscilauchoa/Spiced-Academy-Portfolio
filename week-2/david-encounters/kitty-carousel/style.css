@@ -31,3 +31,20 @@
     transition-property: transform;
     transition-duration: 1s;
 }
+
+#circles {
+    position: fixed;
+    z-index: 1;
+    width: 90px;
+    left: 50%;
+    top: 55%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 4px solid rgb(255, 255, 255);
+}

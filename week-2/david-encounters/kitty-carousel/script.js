@@ -1,13 +1,47 @@
 (function () {
     var container = document.getElementById("kitties");
     var kitties = document.querySelectorAll("#kitties img");
+    var kitBtn1 = document.getElementById("kit1");
+    var kitBtn2 = document.getElementById("kit2");
+    var kitBtn3 = document.getElementById("kit3");
+    var kitBtn4 = document.getElementById("kit4");
+
     var currentKitty = 0;
+
+    kitBtn1.addEventListener("mousedown", function (e) {
+        e.target.style.backgroundColor = "white";
+        setTimeout(moveKitties, 10);
+        kitBtn1.addEventListener("mouseup", function (e) {
+            e.target.style.backgroundColor = "";
+        });
+    });
+    kitBtn2.addEventListener("mousedown", function (e) {
+        e.target.style.backgroundColor = "white";
+        setTimeout(moveKitties, 10);
+        kitBtn2.addEventListener("mouseup", function (e) {
+            e.target.style.backgroundColor = "";
+        });
+    });
+    kitBtn3.addEventListener("mousedown", function (e) {
+        e.target.style.backgroundColor = "white";
+        setTimeout(moveKitties, 10);
+        kitBtn3.addEventListener("mouseup", function (e) {
+            e.target.style.backgroundColor = "";
+        });
+    });
+    kitBtn4.addEventListener("mousedown", function (e) {
+        e.target.style.backgroundColor = "white";
+        setTimeout(moveKitties, 10);
+        kitBtn4.addEventListener("mouseup", function (e) {
+            e.target.style.backgroundColor = "";
+        });
+    });
 
     // console.log(currentKitty);
     container.addEventListener("transitionend", function (e) {
         if (e.target.classList.contains("exit")) {
             e.target.classList.remove("exit");
-            setTimeout(moveKitties, 1000);
+            setTimeout(moveKitties, 5000);
         }
     });
 
