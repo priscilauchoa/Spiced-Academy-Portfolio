@@ -18,6 +18,7 @@
     //     // });
     // }
     // console.log(circles[currentCircle]);
+
     for (i = 0; i < circles.length; i++) {
         circles[i].addEventListener("click", function (e) {
             if (transitioning) {
@@ -28,7 +29,7 @@
             console.log(timer);
             for (j = 0; j < circles.length; j++) {
                 if (circles[j] === e.target) {
-                    moveKitties(j);
+                    moveKittieCarousel(j);
                     break;
                 }
             }
@@ -49,12 +50,12 @@
         if (e.target.classList.contains("exit")) {
             transitioning = false;
             e.target.classList.remove("exit");
-            setTimeout(moveKitties, 5000);
+            setTimeout(moveKittieCarousel, 5000);
         }
     });
     // console.log(currentKitty);
 
-    function moveKitties(indexValue) {
+    function moveKittieCarousel(indexValue) {
         kitties[currentKitty].classList.remove("onscreen");
         transitioning = true;
         circles[currentKitty].classList.remove("on");
@@ -75,7 +76,7 @@
     }
     console.log(circles[currentKitty]);
     console.log(kitties[currentKitty]);
-    timer = setTimeout(moveKitties, 5000);
+    timer = setTimeout(moveKittieCarousel, 5000);
 })();
 
 // When a user clicks on a dot, you first of all need to make 2 checks:
@@ -84,8 +85,8 @@
 // If we are mid-transition, its value will be true
 // Check if the dot which was clicked corresponds to the current cat on the screen, and if so do nothing
 // In the click handler, you can do this by comparing the index of the dot which was clicked on, to the index of the current cat on the screen
-// If you have made it past these checks, you should now cancel the currently scheduled call to moveKitties
+// If you have made it past these checks, you should now cancel the currently scheduled call to moveKittieCarousel
 // You can do this by calling clearTimeout, and passing it the value assigned to the 'timer' variable
-// You can now call moveKitties again, passing it the index of the dot which was clicked
-// moveKitties will use this value to determine which cat to move onscreen next
+// You can now call moveKittieCarousel again, passing it the index of the dot which was clicked
+// moveKittieCarousel will use this value to determine which cat to move onscreen next
 // If no value if passed, the function will simply move to the next cat is it would have done
