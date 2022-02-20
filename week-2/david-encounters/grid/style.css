@@ -1,0 +1,35 @@
+body {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: 70px 1fr 30px;
+}
+
+header {
+    background-color: violet;
+    /* height: 70px; */
+}
+main {
+    background-color: rgb(148, 238, 232);
+    /* flex-grow: 4; */
+
+    /* border: 4px solid rgb(0, 153, 255);
+    display: grid;
+    grid-template-rows: 100px 200px;
+  
+
+  grid-template-columns: 200px 1fr 2fr; */
+}
+footer {
+    background-color: blueviolet;
+    /* height: 30px; */
+}
+/* 
+div {
+    border: 4px solid rgb(235, 49, 235);
+}  */
+
+/* .box-table {
+    display: grid;
+    grid-template-rows: 200px;
+    grid-template-columns: 200px 200px 200px 200px;
+} */

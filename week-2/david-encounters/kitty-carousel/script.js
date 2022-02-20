@@ -1,83 +1,91 @@
 (function () {
-    var container = document.getElementById("kitties");
     var kitties = document.querySelectorAll("#kitties img");
-    var kitBtn1 = document.getElementById("kit1");
-    var kitBtn2 = document.getElementById("kit2");
-    var kitBtn3 = document.getElementById("kit3");
-    var kitBtn4 = document.getElementById("kit4");
-
     var currentKitty = 0;
+    var container = document.getElementById("kitties");
+    var circles = document.querySelectorAll(".circle");
+    var transitioning = false;
+    var timer;
+    console.log(timer);
+    // console.log(circles);
+    var i;
 
-    kitBtn1.addEventListener("mousedown", function (e) {
-        e.target.style.backgroundColor = "white";
-        setTimeout(moveKitties, 1000);
-        kitBtn1.addEventListener("mouseup", function (e) {
-            e.target.style.backgroundColor = "";
+    //     (function () {
+    //         circles[i].addEventListener("click", circleClickHandler(i));
+    //     })(i);
+    //     //SECOND SOLUTION
+    //     // circles[i].addEventListener("click", Function (e){
+    //     //     var dotIndex = ;e.target.id;
+    //     // });
+    // }
+    // console.log(circles[currentCircle]);
+    for (i = 0; i < circles.length; i++) {
+        circles[i].addEventListener("click", function (e) {
+            if (transitioning) {
+                return;
+            }
+            clearTimeout(timer);
+            var j;
+            console.log(timer);
+            for (j = 0; j < circles.length; j++) {
+                if (circles[j] === e.target) {
+                    moveKitties(j);
+                    break;
+                }
+            }
         });
-    });
-    kitBtn2.addEventListener("mousedown", function (e) {
-        e.target.style.backgroundColor = "white";
-        setTimeout(moveKitties, 10);
-        kitBtn2.addEventListener("mouseup", function (e) {
-            e.target.style.backgroundColor = "";
-        });
-    });
-    kitBtn3.addEventListener("mousedown", function (e) {
-        e.target.style.backgroundColor = "white";
-        setTimeout(moveKitties, 10);
-        kitBtn3.addEventListener("mouseup", function (e) {
-            e.target.style.backgroundColor = "";
-        });
-    });
-    kitBtn4.addEventListener("mousedown", function (e) {
-        e.target.style.backgroundColor = "white";
-        setTimeout(moveKitties, 10);
-        kitBtn4.addEventListener("mouseup", function (e) {
-            e.target.style.backgroundColor = "";
-        });
-    });
+    }
+    // function circleClickHandler(indexValue) {
+    //     return function () {
+    //         circles[currentCircle].addEventListener("click", function (e) {
+    //             var dotIndex = e.target.id;
+    //             console.log("é igual", dotIndex === indexValue);
+    //             currentCircle++;
+    //             clearTimeout(timer);
+    //             // console.log("indexValue", dotIndex);
+    //     });
+    // };
 
-    // console.log(currentKitty);
     container.addEventListener("transitionend", function (e) {
         if (e.target.classList.contains("exit")) {
+            transitioning = false;
             e.target.classList.remove("exit");
             setTimeout(moveKitties, 5000);
         }
     });
+    // console.log(currentKitty);
 
-    function moveKitties() {
+    function moveKitties(indexValue) {
         kitties[currentKitty].classList.remove("onscreen");
-        // console.log("no contains");
+        transitioning = true;
+        circles[currentKitty].classList.remove("on");
         kitties[currentKitty].classList.add("exit");
         currentKitty++;
+        console.log(timer);
 
-        if (currentKitty == kitties.length) {
+        if (currentKitty >= kitties.length) {
             currentKitty = 0;
         }
+
+        if (typeof indexValue === "number") {
+            currentKitty = indexValue;
+        }
+
+        circles[currentKitty].classList.add("on");
         kitties[currentKitty].classList.add("onscreen");
-
-        // if (kitties[currentKitty].classList.contains("onscreen")) {
-        //     // console.log("contains");
-
-        //     console.log(kitties[currentKitty]);
-        //     // console.log("contains exit");
-        //     console.log(currentKitty);
-
-        //     // remove onscreen class from kitty at current index
-        //     //add exit class from kitty at current index
-        //     // console.log("the current is ", currentKitty);
-        //     // console.log("now the currrent is ", currentKitty);
-        // }
-        // setTimeout(moveKitties, 1000);
-        //add the onscreen class to kitty at the new current index
-        // usar setTimeout 5seconds
-        // colocar um if e  um chamar de novo toda vez que o kitty.legth acabou e comecar de novo
-
-        // setTimeout(moveKitties, 1000);?
     }
-
-    setTimeout(moveKitties, 1000);
-    // console.log("here");
-    // kittie[0].classList.add("exit");
-    // event delegation
+    console.log(circles[currentKitty]);
+    console.log(kitties[currentKitty]);
+    timer = setTimeout(moveKitties, 5000);
 })();
+
+// When a user clicks on a dot, you first of all need to make 2 checks:
+// Check if the cats are in mid-transition, and if so do nothing
+// We have a variable called 'transitioning', which keeps track of whether on not that is the case
+// If we are mid-transition, its value will be true
+// Check if the dot which was clicked corresponds to the current cat on the screen, and if so do nothing
+// In the click handler, you can do this by comparing the index of the dot which was clicked on, to the index of the current cat on the screen
+// If you have made it past these checks, you should now cancel the currently scheduled call to moveKitties
+// You can do this by calling clearTimeout, and passing it the value assigned to the 'timer' variable
+// You can now call moveKitties again, passing it the index of the dot which was clicked
+// moveKitties will use this value to determine which cat to move onscreen next
+// If no value if passed, the function will simply move to the next cat is it would have done
