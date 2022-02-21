@@ -5,6 +5,23 @@
     var overlay = document.getElementsByClassName("overlay"); //<p>
     // console.log(sideNav);
 
+    // console.log(popup);
+
+    function showPopup() {
+        window.setTimeout(function () {
+            var popup = $("#pop-up-container");
+            popup.css("visibility", "visible");
+        }, 1000);
+
+        var close = $("#close");
+        close.on("click", function () {
+            var popup = $("#pop-up-container");
+            popup.css("visibility", "hidden");
+        });
+    }
+    showPopup();
+
+    // console.log(popup);
     menuButton.addEventListener("click", function () {
         // console.log("menuButton");
         sideNav[0].classList.add("on");
