@@ -1,13 +1,13 @@
 (function () {
     var inp = $("input");
     var resultsContainer = $("#results");
+
+    inp.focus(); // foca o elemento em questão
     // console.log("here", resultsContainer);
-    // console.log("here");
 
     inp.on("input focus", function (e) {
         var val = inp.val();
         // console.log(val);
-        //pega o valor dentro do do input
 
         if (!val) {
             //empty and or hide results
@@ -31,10 +31,10 @@
         //     for(var i = 0; i < countries.length;
         // }
         // selectCountry();
+        var resultsHtml = "";
         if (matches.length) {
             //retorna true se tiver algo dentro
             // loop into and create a html for each match
-            var resultsHtml = "";
             for (i = 0; i < matches.length; i++) {
                 resultsHtml += "<div>" + matches[i] + "</div>";
             }
@@ -47,7 +47,7 @@
             // se matches is empty show no results message
         }
     });
-    // document olha pra página e ve se o evento acontece no results div, se sim executa a function and hide all other results
+
     $(document)
         .on("mouseenter", "#results div", function (e) {
             $(e.target).addClass("highlighted");
@@ -90,73 +90,15 @@
                 }
             }
 
-            // inp.on("keydown", function (e) {
-            //     var resulElem = $("#results div");
-            //     var highlighted = $(".highlight");
-            //     if (e.keyCode === 40) {
-            //         // down arrow
-            //         if (highlighted.length > 0) {
-            //             highlighted.removeClass("highlight");
-            //             highlighted.next().addClass("highlight");
-            //         } else {
-            //             resulElem.first().addClass("highlight");
-            //         }
-            //     }
-            //     if (e.keyCode === 38) {
-            //         // down arrow
-            //         if (highlighted.length > 0) {
-            //             highlighted.removeClass("highlight");
-            //             highlighted.prev().addClass("highlight");
-            //         } else {
-            //             resulElem.last().addClass("highlight");
-            //         }
-            //     }
-            //     if (e.keyCode === 13) {
-            //         inp.val($(".highlight").text());
-            //         resultsContainer.hide();
-            //     }
-            // });
+            if (e.keyCode == 13) {
+                // var resultHide = "";
+                inp.val(highlighted.text()); // highlighted é um object jquery, portanto devemos usar highlighted.text() para pegar o texto de highlighted
+                console.log("aqui", highlighted.text());
+                resultsContainer.html("").hide();
 
-            // } else if (resultsContainerDiv.hasClass(highlighted)) {
-            //     resultsContainerDiv.prev().removeClass("highlighted");
-            //     resultsContainerDiv.next().addClass("highlighted");
-            // }
-            // else if(focused)
+                // inp.val($(e.target).text());
+            }
         });
-    //                 // if ($(e.target).is(":focus")) {
-    //                 // if ($(e.target).is(":focus")) {
-    //                     // for (i; i < resultsContainerDiv.length; i++) {
-    //                     //     // console.log(resultsContainer.eq(0));
-    //                     // resultsContainerDiv.first().removeClass("highlighted");
-    //                     // resultsContainerDiv
-    //                     //     .eq(i)
-    //                     //     .next()
-    //                     //     .focus()
-    //                     //     .addClass("highlighted");
-
-    //                     //     console.log("down");
-    //                     // }
-
-    //                 // } else if (e.keyCode == 38) {
-    //                 //     for (var j = 0; j > resultsContainer.length; j--) {
-    //                 //         // $(i).focus();
-    //                 //         resultsContainer.eq(j).focus();
-    //                 //         $(e.target).addClass("highlighted");
-    //                 //         console.log("up");
-    //                 // }
-    //             // } else if (e.keyCode == 38) {
-    //                 // for (var j = 0; j > resultsContainer.length; j--) {
-    //                 // $(i).focus();
-    //                 // resultsContainer.eq(j).focus();
-    //                 // resultsContainerDiv.last().addClass("highlighted");
-
-    //         });
-
-    //if none of the results are current displaed has the higlight class add highlight class to the fisrt one
-    // if there is a resukt with the highlight class remove the  highlight class from it and add highligth to next one
-    //if there is a result with highlight class to the last on do nothing
-
-    //window.on("keyCode") pega a tecla difitada na página
 
     var countries = [
         "Afghanistan",
@@ -182,7 +124,7 @@
         "Bolivia",
         "Bosnia and Herzegovina",
         "Botswana",
-        "Brazil",
+        "Brazil 🇧🇷",
         "Brunei Darussalam",
         "Bulgaria",
         "Burkina Faso",
