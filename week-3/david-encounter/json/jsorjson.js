@@ -5,11 +5,11 @@
 
     $("#validate").on("click", function (e) {
         var txt = $("textarea").val();
-        console.log(typeof txt);
+        // console.log(typeof txt);
 
         try {
             JSON.parse(txt);
-            console.log(typeof txt);
+            // console.log(typeof txt);
         } catch {
             alert("this is not json ");
         }
