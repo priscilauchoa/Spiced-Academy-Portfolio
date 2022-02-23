@@ -9,14 +9,12 @@
 
     function showPopup() {
         window.setTimeout(function () {
-            var popup = $("#pop-up-container");
-            popup.css("visibility", "visible");
+            $("#pop-up-container").css("visibility", "visible");
         }, 1000);
 
         var close = $("#close");
         close.on("click", function () {
-            var popup = $("#pop-up-container");
-            popup.css("visibility", "hidden");
+            $("#pop-up-container").css("visibility", "hidden");
         });
     }
     showPopup();
