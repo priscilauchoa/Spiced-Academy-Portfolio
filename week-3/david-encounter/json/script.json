@@ -1,0 +1,19 @@
+[
+    {
+        "name": "Superman",
+        "secretIdentity": "Clark Kent",
+        "age": 77,
+        "wearsCapes": true,
+        "spouse": null,
+        "powers": ["flight", "strength", "x-ray vision"],
+        "residences": {
+            "Metropolis": "main",
+            "Antarctica": "weekends and holidays"
+        }
+    },
+    {
+        "name": "Judith",
+        "age": 70
+    }
+]
+
