@@ -1,0 +1,19 @@
+#result {
+    /* background-color: aqua; */
+    color: blueviolet;
+}
+
+.search {
+    /* background-color: green; */
+    color: black;
+    width: 250px;
+}
+
+.highlighted {
+    background-color: rgb(105, 100, 100);
+    color: white;
+}
+
+input {
+    width: 250px;
+}
