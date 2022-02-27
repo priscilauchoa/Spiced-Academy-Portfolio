@@ -11,7 +11,9 @@
 
     $(".turn1").hide();
     $(".turn2").show();
-    $("#play").on("click", function () {
+
+    $("button").on("click", function () {
+        console.log("button");
         location.reload();
     });
     //Column click____________________________________________
@@ -34,58 +36,61 @@
                 !slotsInCol.eq(i).hasClass("player1") &&
                 !slotsInCol.eq(i).hasClass("player2")
             ) {
-                // slotsInCol.eq(i).hasClass(currentPlayer);
                 slotsInCol.eq(i).addClass(currentPlayer);
 
                 break;
             }
         }
 
-        // TODO: implement
-        if (i < 0) {
-            //  ninguem ganhou, começa de novo
+        // No winners - restart game
+        console.log($(".player1").length, $(".player2").length);
+        if ($(".player1").length + $(".player2").length >= 10) {
+            console.log("no winner");
+            $(".play").hide();
+            $(".play").hide();
+            $(".container")
+                .css("visibility", "visible")
+                .css("background-image", "none")
+                .css("background-color", "black");
+            $(".no-winner").css("visibility", "visible");
+
             return;
         }
 
         var hasWinner = false;
+
         function winner() {
             $(".container").css("visibility", "visible");
             if (currentPlayer === "player1") {
+                $(".no-winner").remove();
+
                 var imageUrl = "./connect4.png";
-                $(".play").css("background-image", "url(" + imageUrl + ")");
-                console.log("ganhou");
+                $("#winner").css("background-image", "url(" + imageUrl + ")");
             } else if (currentPlayer === "player2") {
+                $(".no-winner").remove();
+
                 var imageUrl2 = "./1200px-Ampelmann_Rot.svg.png";
-                $(".play").css("background-image", "url(" + imageUrl2 + ")");
-                console.log("ganhou");
+                $("#winner").css("background-image", "url(" + imageUrl2 + ")");
             }
         }
         // check for victory__________________________________
         if (checkForVictoryColumnOrRow(slotsInCol)) {
-            //  victory
             hasWinner = true;
             winner();
-
             console.log(currentPlayer, "is the  Winner - column");
             return;
         } else if (checkForVictoryColumnOrRow($(".row" + i))) {
             hasWinner = true;
             winner();
-
-            //  victory
             console.log(currentPlayer, "is the  Winner - row");
             return;
         } else if (checkDiagonal($(".slot"))) {
             hasWinner = true;
             winner();
-
             console.log(currentPlayer, "is the  Winner - diagonal");
-            //  victory
         }
 
         return;
-
-        // if no victory was found above, switch players
     });
 
     function checkForVictoryColumnOrRow(columnOrRow) {
@@ -95,6 +100,7 @@
                 count++;
 
                 if (count == 4) {
+                    columnOrRow.eq(i).css("background-color", "pink");
                     return true;
                 }
             } else {
@@ -104,8 +110,6 @@
     }
 
     function checkDiagonal(rows) {
-        // console.log(rows.index(rows.eq(i).hasClass(currentPlayer)));
-        // console.log(rows.index(rows.eq(25).hasClass(currentPlayer)));
         var hasCurrentIndexArray = [];
         var count = 0;
         var hasWineer = false;
@@ -113,15 +117,7 @@
         console.log("### rows.length", rows.length);
         for (var j = 0; j < rows.length; j++) {
             if (hasWineer) break;
-            // console.log("### row", rows.eq(j).attr("class"));
             if (rows.eq(j).hasClass(currentPlayer)) {
-                var hasCurrentIndex = rows.index(
-                    rows.eq(j).hasClass(currentPlayer)
-                );
-
-                //  = board.eq(i).hasClass(currentPlayer);
-                // hasCurrentIndexArray = currentIndex.indexOf(currentIndex);
-                // hasCurrentIndexArray.push(hasCurrentIndex);
                 hasCurrentIndexArray.push(j);
                 console.log("### hascurrentindex", j, hasCurrentIndexArray);
 
