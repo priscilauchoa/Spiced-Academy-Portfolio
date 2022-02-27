@@ -44,7 +44,7 @@
 
         // No winners - restart game
         console.log($(".player1").length, $(".player2").length);
-        if ($(".player1").length + $(".player2").length >= 10) {
+        if ($(".player1").length + $(".player2").length >= 42) {
             console.log("no winner");
             $(".play").hide();
             $(".play").hide();
@@ -53,7 +53,7 @@
                 .css("background-image", "none")
                 .css("background-color", "black");
             $(".no-winner").css("visibility", "visible");
-
+            $(".winner-p").remove();
             return;
         }
 

@@ -5,7 +5,7 @@
 body {
     display: flex;
     justify-content: center;
-
+    background-color: rgba(233, 222, 222, 0.705);
     margin: 150px;
 }
 
@@ -31,6 +31,8 @@ body {
     border: green solid;
     border-radius: 50%;
     background-color: black;
+    /* animation: roll 3s;
+    transform: rotate(0deg); */
 }
 .player2 .hole {
     background-image: url("./1200px-Ampelmann_Rot.svg.png");
@@ -55,6 +57,8 @@ body {
 .turn img {
     width: 100px;
     height: 100px;
+    animation: roll 3s;
+    transform: rotate(0deg);
 }
 .container {
     position: fixed;
@@ -68,14 +72,12 @@ body {
     left: 0;
     right: 0;
     background-image: url("./balao.gif");
-    /* background-size: center; */
     background-color: white;
     background-size: cover;
     transition: 0.5s ease-in-out;
 }
 
 .container div {
-    /* background-color: rgb(0, 0, 0); */
     display: flex;
     justify-content: center;
     transition: opacity 0.5s ease-in;
@@ -84,18 +86,29 @@ body {
 }
 #winner {
     margin-top: 50px;
-
-    transition: 0.5s ease-in-out;
+    transition-property: opacity, left, top, height;
+    transition-duration: 3s, 5s;
     width: 300px;
     height: 300px;
     background-size: cover;
+    animation: roll 3s infinite;
+    transform: rotate(30deg);
 }
+
+@keyframes roll {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .winner-p {
-    margin-top: 120px;
     font-size: 10em;
     text-transform: uppercase;
-
-    color: rgb(19, 133, 62);
+    margin-top: 310px;
+    color: rgb(66, 207, 120);
 }
 
 .no-winner {
