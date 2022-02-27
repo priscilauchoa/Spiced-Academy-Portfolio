@@ -42,8 +42,7 @@
             }
         }
 
-        // No winners - restart game
-        console.log($(".player1").length, $(".player2").length);
+        // No winners - restart game____________________________________________
         if ($(".player1").length + $(".player2").length >= 42) {
             console.log("no winner");
             $(".play").hide();
@@ -58,22 +57,20 @@
         }
 
         var hasWinner = false;
-
+        // Winners ______________________________________________________________
         function winner() {
             $(".container").css("visibility", "visible");
             if (currentPlayer === "player1") {
                 $(".no-winner").remove();
-
                 var imageUrl = "./connect4.png";
                 $("#winner").css("background-image", "url(" + imageUrl + ")");
             } else if (currentPlayer === "player2") {
                 $(".no-winner").remove();
-
                 var imageUrl2 = "./1200px-Ampelmann_Rot.svg.png";
                 $("#winner").css("background-image", "url(" + imageUrl2 + ")");
             }
         }
-        // check for victory__________________________________
+        // Check for victory__________________________________
         if (checkForVictoryColumnOrRow(slotsInCol)) {
             hasWinner = true;
             winner();
@@ -100,7 +97,6 @@
                 count++;
 
                 if (count == 4) {
-                    columnOrRow.eq(i).css("background-color", "pink");
                     return true;
                 }
             } else {
@@ -151,27 +147,10 @@
                         [23, 28, 33, 38],
                     ];
 
-                    // for (var i = 0; i < winningCombos.length; i++) {
-                    //     if (hasCurrentIndexArray[i] == winningCombos[j]) {
-                    //         return console.log(
-                    //             currentPlayer,
-                    //             "is the  Winner - diagonal"
-                    //         );
-                    //     }
-                    //     return;
-                    // }
-
                     for (var i = 0; i < winningCombos.length; i++) {
                         var matches = true;
                         var validationArray = winningCombos[i];
                         for (var l = 0; l < validationArray.length; l++) {
-                            // console.log(
-                            //     "### match",
-                            //     matches,
-                            //     hasCurrentIndexArray[l],
-                            //     validationArray[l]
-                            // );
-
                             var isInArray =
                                 hasCurrentIndexArray.indexOf(
                                     validationArray[l]
@@ -187,96 +166,9 @@
                             hasWineer = true;
                         }
                     }
-
-                    console.log("### hasWineer", hasWineer);
                 }
             }
         }
         return hasWineer;
     }
-
-    // checkDiagonal();
 })();
-
-// (function () {
-//     var currentPlayer = "player1";
-
-//     function switchPlayer() {
-//         if (currentPlayer === "player1") {
-//             currentPlayer = "player2";
-//         } else {
-//             currentPlayer = "player1";
-//         }
-//         // console.log("aqui", currentPlayer);
-//     }
-
-//     // quando clica na coluna verifica o buraco que  está mais baixo na coluna e ocupa
-//     $(".column").on("click", function (e) {
-//         var col = $(e.currentTarget); // currentTarget é o elemento que tá atualmente lidando com o evento
-//         console.log("children", col.children().hasClass("player1"));
-
-//         var slotsInCol = col.children();
-//         // console.log("i was cicked", slotsInCol);
-
-//         //Add move to board______________________________________________________
-//         for (var i = 5; i >= 0; i--) {
-//             if (
-//                 !slotsInCol.eq(i).hasClass("player1") &&
-//                 !slotsInCol.eq(i).hasClass("player2")
-//             ) {
-//                 slotsInCol.eq(i).hasClass(currentPlayer);
-//                 slotsInCol.eq(i).addClass(currentPlayer);
-//                 break;
-//             }
-//         }
-
-//         if (i < 0) {
-//             console.log("coluna completa ");
-//             return;
-//         }
-//         // ________________________________________________________________________
-
-//         ____
-
-//         // console.log(slotsInCol);
-//         if (checkVictory(slotsInCol)) {
-//             console.log("victory");
-//             // faça a animação do vencedor
-//             console.log("slot maior que 4");
-//         } else if (checkVictory($(".row" + i))) {
-//             // faça a animação do vencedor
-//             //
-//         } else {
-//             //check diagonally
-//         }
-//         //________________________________________________________________________
-//         function checkVictory(slots) {
-//             var count = 0;
-//             // console.log("slotttttt ===>", slots.eq(i));
-
-//             for (var i = 0; i < slots.lenght; i++) {
-//                 if (slots.eq(i).hasClass(currentPlayer)) {
-//                     count++;
-
-//                     console.log("count---->", count, slots.eq(i));
-//                     if (count == 3) {
-//                         console.log("victory");
-//                     }
-//                 } else {
-//                     count = 0;
-//                 }
-//             }
-//         }
-//         //se nao tiver vencedor switch os jogadores player
-
-//         //check for victory
-//         //verifica se existe 4 holes seguidos preechidos pela mesma classe player.. se sim é o vencedor
-//         //checa a coluna que o jogador selecionou de tem 4
-//         //checa a linha que a peça acabou de entrar
-//         //check diagonal
-//         // se determinou quem é o vencedor mostrar uma animação
-//         switchPlayer();
-//         // var col = $(e.currentTarget);
-//     });
-//     // checkVictory($(".column"));
-// })();
