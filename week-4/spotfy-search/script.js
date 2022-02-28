@@ -1,5 +1,11 @@
 (function () {
     var nextUrl = "https://spicedify.herokuapp.com/spotify";
+    // $("input").on("focus", function () {
+    //     $("input").val("");
+    // });
+    // $("input").on("blur", function () {
+    //     $("input").val("🔍");
+    // });
     $(".submit-button").on("click", function () {
         var userInput = $("input").val();
         var artistOrAlbum = $("select").val();
@@ -18,8 +24,10 @@
 
                     if (response.items.length == 0) {
                         resultsHtml += "<h1>No results found</h1>";
+                    } else {
+                        $(".more-button").css("visibility", "visible");
+                        resultsHtml += "<h1>Results for: </h1>";
                     }
-
                     for (var i = 0; i < response.items.length; i++) {
                         var defaultImage =
                             "https://media.istockphoto.com/photos/broken-heart-picture-id534199227";
@@ -29,18 +37,18 @@
                         }
 
                         resultsHtml +=
-                            "<h1>Results for: </h1><p>" +
-                            response.items[i].name +
-                            '<a href="</p>' +
+                            '<a href="' +
                             response.items[i].external_urls.spotify +
-                            '" ><img src="' +
+                            '"><p>' +
+                            response.items[i].name +
+                            '</p><img src="' +
                             defaultImage +
                             '" alt="some image" </a>';
                     }
                     $(".results-container").html(resultsHtml);
 
                     if (response.next === null) {
-                        $(".more-button").hide();
+                        $(".more-button").css("visibility", "hidden");
                     }
                     console.log(response.items.length);
                     $(".more-button").on("click", function (e) {
