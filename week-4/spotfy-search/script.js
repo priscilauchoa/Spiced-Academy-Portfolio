@@ -1,11 +1,9 @@
 (function () {
     var nextUrl = "https://spicedify.herokuapp.com/spotify";
-    // $("input").on("focus", function () {
-    //     $("input").val("");
-    // });
-    // $("input").on("blur", function () {
-    //     $("input").val("🔍");
-    // });
+    $("input").on("focus", function () {
+        $("input").val("");
+    });
+
     $(".submit-button").on("click", function () {
         var userInput = $("input").val();
         var artistOrAlbum = $("select").val();
@@ -26,7 +24,8 @@
                         resultsHtml += "<h1>No results found</h1>";
                     } else {
                         $(".more-button").css("visibility", "visible");
-                        resultsHtml += "<h1>Results for: </h1>";
+                        resultsHtml +=
+                            "<h1>Results for:  " + userInput + "</h1>";
                     }
                     for (var i = 0; i < response.items.length; i++) {
                         var defaultImage =

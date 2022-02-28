@@ -25,11 +25,13 @@ a {
 
 .more-button {
     visibility: hidden;
-    bottom: 0;
+    margin: 50px 0;
 }
 
-.spotfy-h1 {
+h1 {
     color: white;
+    font-weight: 100;
+    font-size: 20px;
 }
 .spotfy {
     text-align: center;
@@ -67,6 +69,7 @@ select {
 .submit-button {
     background-color: black;
     border-radius: 10px;
+    padding: 0 10px;
     color: white;
     border: solid rgb(27, 178, 107);
 }
