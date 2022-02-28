@@ -39,11 +39,11 @@
                         resultsHtml +=
                             '<a href="' +
                             response.items[i].external_urls.spotify +
-                            '"><p>' +
+                            '"><div class="results-div"><p>' +
                             response.items[i].name +
                             '</p><img src="' +
                             defaultImage +
-                            '" alt="some image" </a>';
+                            '" alt="some image" </a></div>';
                     }
                     $(".results-container").html(resultsHtml);
 

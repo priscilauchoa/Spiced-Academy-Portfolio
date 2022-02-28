@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 body {
+    font-family: "Roboto", sans-serif;
     background-color: black;
     /* height: 100vh; */
     width: 100vw;
@@ -30,6 +31,14 @@ a {
 .spotfy-h1 {
     color: white;
 }
+.spotfy {
+    text-align: center;
+    width: 100%;
+}
+
+.spotfy > img {
+    width: 357px;
+}
 
 .div-spotify {
     display: flex;
@@ -56,7 +65,16 @@ select {
 }
 
 .submit-button {
-    background-color: rgb(82, 218, 82);
+    background-color: black;
     border-radius: 10px;
-    border: solid rgb(82, 218, 82);
+    color: white;
+    border: solid rgb(27, 178, 107);
+}
+
+.results-div {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    align-items: flex-start;
+    width: 80%;
 }
