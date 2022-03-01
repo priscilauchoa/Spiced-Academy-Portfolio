@@ -21,14 +21,15 @@
 
                     if (response.items.length == 0) {
                         resultsHtml += "<h1>No results found</h1>";
-                    } else {
-                        $(".more-button").css("visibility", "visible");
+                    } else if (!$("document").hasCLass("results-for")) {// continue
                         resultsHtml +=
-                            '<h1>Results for: "' + userInput + '"</h1>';
+                            '<h1 id="results-for">Results for: "' +
+                            userInput +
+                            '"</h1>';
                     }
+
                     for (var i = 0; i < response.items.length; i++) {
-                        var defaultImage =
-                            "https://media.istockphoto.com/photos/broken-heart-picture-id534199227";
+                        var defaultImage = "./logo.png";
 
                         if (response.items[i].images.length > 0) {
                             defaultImage = response.items[i].images[0].url;
@@ -48,6 +49,14 @@
                         $(".results-container").html(resultsHtml);
                     } else {
                         $(".results-container").append(resultsHtml);
+                        $(window).scroll(function () {
+                            if (
+                                $(window).scrollTop() >=
+                                $(document).height() - $(window).height() - 500
+                            ) {
+                                requestAjax(nextUrl);
+                            }
+                        });
                     }
 
                     if (response.next === null) {
@@ -60,11 +69,27 @@
                                 "api.spotify.com/v1/search",
                                 "spicedify.herokuapp.com/spotify"
                             );
-                        if (nextUrl === null) {
+                        // if (nextUrl === null) {
+                        if (location.search.indexOf("scroll=infinite")) {
                             $(".more-button").hide();
+                            $(window).scroll(function () {
+                                if (
+                                    $(window).scrollTop() >=
+                                    $(document).height() - $(window).height()
+                                ) {
+                                    requestAjax(nextUrl);
+                                }
+                            });
                         } else {
                             $(".more-button").hide();
-                            requestAjax(nextUrl);
+                            // $(window).scroll(function () {
+                            //     if (
+                            //         $(window).scrollTop() >=
+                            //         $(document).height() - $(window).height()
+                            //     ) {
+                            //         requestAjax(nextUrl);
+                            //     }
+                            // });
                         }
                     });
                 },
