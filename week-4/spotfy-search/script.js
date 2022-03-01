@@ -4,105 +4,109 @@
         $("input").val("");
     });
 
-    $(".submit-button").on("click", function () {
+    var res = null;
+
+    function requestAjax() {
+
+        
         var userInput = $("input").val();
         var artistOrAlbum = $("select").val();
+        return $.ajax({
+            url: nextUrl,
+            data: {
+                query: userInput,
+                type: artistOrAlbum,
+            },
+            success: function (response) {
+                res = response;
+                response = response.artists || response.albums;
+                var resultsHtml = "";
 
-        function requestAjax() {
-            return $.ajax({
-                url: nextUrl,
-                data: {
-                    query: userInput,
-                    type: artistOrAlbum,
-                },
-                success: function (response) {
-                    response = response.artists || response.albums;
-                    var resultsHtml = "";
+                if (response.items.length == 0) {
+                    resultsHtml += "<h1>No results found</h1>";
+                } else {
+                    resultsHtml +=
+                        '<h1 class="results-for">Results for: "' +
+                        userInput +
+                        '"</h1>';
+                }
 
-                    if (response.items.length == 0) {
-                        resultsHtml += "<h1>No results found</h1>";
-                    }
-                    // $(".more-button").css("visibility", "visible");
-                    else {
-                        resultsHtml +=
-                            '<h1 id="results-for">Results for: "' +
-                            userInput +
-                            '"</h1>';
-                    }
+                for (var i = 0; i < response.items.length; i++) {
+                    var defaultImage = "./logo.png";
 
-                    for (var i = 0; i < response.items.length; i++) {
-                        var defaultImage = "./logo.png";
-
-                        if (response.items[i].images.length > 0) {
-                            defaultImage = response.items[i].images[0].url;
-                        }
-
-                        resultsHtml +=
-                            '<a href="' +
-                            response.items[i].external_urls.spotify +
-                            '"><div class="results-div"><p>' +
-                            response.items[i].name +
-                            '</p><img src="' +
-                            defaultImage +
-                            '" alt="some image" </a></div>';
-                    }
-                    console.log("resultsHtml.length", resultsHtml.length);
-                    if (resultsHtml.length < 0) {
-                        $(".results-container").html(resultsHtml);
-                    } else {
-                        $(".results-container").append(resultsHtml);
-                        $(window).scroll(function () {
-                            if (
-                                $(window).scrollTop() >=
-                                $(document).height() - $(window).height() - 500
-                            ) {
-                                requestAjax(nextUrl);
-                            }
-                        });
+                    if (response.items[i].images.length > 0) {
+                        defaultImage = response.items[i].images[0].url;
                     }
 
-                    if (response.next === null) {
-                        $(".more-button").css("visibility", "hidden");
+                    resultsHtml +=
+                        '<a href="' +
+                        response.items[i].external_urls.spotify +
+                        '"><div class="results-div"><p>' +
+                        response.items[i].name +
+                        '</p><img src="' +
+                        defaultImage +
+                        '" alt="some image" </a></div>';
+                }
+
+                if (resultsHtml.length < 0) {
+                    $(".results-container").html(resultsHtml);
+                } else {
+                    $(".results-container").append(resultsHtml);
+                    if ($(".results-container").hasClass(".results-for")) {
+                        $(".results-for").last().remove();
                     }
-                    $(".more-button").on("click", function (e) {
-                        nextUrl =
-                            response.next &&
-                            response.next.replace(
-                                "api.spotify.com/v1/search",
-                                "spicedify.herokuapp.com/spotify"
-                            );
-                        // if (nextUrl === null) {
-                        if (location.search.indexOf("scroll=infinite")) {
-                            $(".more-button").hide();
-                            $(window).scroll(function () {
-                                if (
-                                    $(window).scrollTop() >=
-                                    $(document).height() - $(window).height()
-                                ) {
-                                    requestAjax(nextUrl);
-                                }
-                            });
-                        } else {
-                            $(".more-button").hide();
-                            // $(window).scroll(function () {
-                            //     if (
-                            //         $(window).scrollTop() >=
-                            //         $(document).height() - $(window).height()
-                            //     ) {
-                            //         requestAjax(nextUrl);
-                            //     }
-                            // });
-                        }
-                    });
-                },
-            });
-        }
+                    console.log($(".results-for").last());
+                }
+
+                if (response.next === null) {
+                    $(".more-button").css("visibility", "hidden");
+                }
+
+                // else {
+                //     $(".more-button").hide();
+                //     $(window).scroll(function () {
+                //         if (
+                //             $(window).scrollTop() >=
+                //             $(document).height() -
+                //                 $(window).height() -
+                //                 100
+                //         ) {
+                //             requestAjax(nextUrl);
+                //         }
+                //     });
+                // }
+            },
+        });
+    }
+
+    $(".submit-button").on("click", function () {
         requestAjax();
     });
 
-    // $(document).on("click", ".more-button", ".submit-button", function (e) {
-    //     var submitButtonWasClicked = e.target.id === "submit-button";
-    //     var moreButtonWasClicked = e.target.class === "more-button";
+    $(window).scroll(function () {
+        console.log("### scroll");
 
-    // });
+        if (location.search.indexOf("scroll=infinite")) {
+            if (!res) return;
+            $(".more-button").hide();
+            nextUrl =
+                res.next &&
+                res.next.replace(
+                    "api.spotify.com/v1/search",
+                    "spicedify.herokuapp.com/spotify"
+                );
+            // return; // TODO: remove return
+            if (
+                $(window).scrollTop() >=
+                $(document).height() - $(window).height() - 500
+            ) {
+                console.log("### timeout begin");
+                setTimeout(function () {
+                    console.log("### timeout done", nextUrl);
+
+                    requestAjax(nextUrl);
+                }, 500);
+            }
+        }
+    });
 })();
