@@ -21,7 +21,9 @@
 
                     if (response.items.length == 0) {
                         resultsHtml += "<h1>No results found</h1>";
-                    } else if (!$("document").hasCLass("results-for")) {// continue
+                    }
+                    // $(".more-button").css("visibility", "visible");
+                    else {
                         resultsHtml +=
                             '<h1 id="results-for">Results for: "' +
                             userInput +
