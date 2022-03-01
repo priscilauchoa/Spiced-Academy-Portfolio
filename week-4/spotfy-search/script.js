@@ -17,7 +17,6 @@
                 },
                 success: function (response) {
                     response = response.artists || response.albums;
-                    console.log("response: ", response);
                     var resultsHtml = "";
 
                     if (response.items.length == 0) {
@@ -25,7 +24,7 @@
                     } else {
                         $(".more-button").css("visibility", "visible");
                         resultsHtml +=
-                            "<h1>Results for:  " + userInput + "</h1>";
+                            '<h1>Results for: "' + userInput + '"</h1>';
                     }
                     for (var i = 0; i < response.items.length; i++) {
                         var defaultImage =
@@ -44,12 +43,16 @@
                             defaultImage +
                             '" alt="some image" </a></div>';
                     }
-                    $(".results-container").html(resultsHtml);
+                    console.log("resultsHtml.length", resultsHtml.length);
+                    if (resultsHtml.length < 0) {
+                        $(".results-container").html(resultsHtml);
+                    } else {
+                        $(".results-container").append(resultsHtml);
+                    }
 
                     if (response.next === null) {
                         $(".more-button").css("visibility", "hidden");
                     }
-                    console.log(response.items.length);
                     $(".more-button").on("click", function (e) {
                         nextUrl =
                             response.next &&
@@ -60,6 +63,7 @@
                         if (nextUrl === null) {
                             $(".more-button").hide();
                         } else {
+                            $(".more-button").hide();
                             requestAjax(nextUrl);
                         }
                     });
@@ -68,4 +72,10 @@
         }
         requestAjax();
     });
+
+    // $(document).on("click", ".more-button", ".submit-button", function (e) {
+    //     var submitButtonWasClicked = e.target.id === "submit-button";
+    //     var moreButtonWasClicked = e.target.class === "more-button";
+
+    // });
 })();
