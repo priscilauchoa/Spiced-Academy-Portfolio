@@ -76,8 +76,7 @@ function getRelocatedCity(city1, city2) {
         city2 = { country: "Germany" };
     }
     var relocatedCity = getNameAndCountry(city2);
-    var relocatedCityShift = relocatedCity.shift();
-    var objrelocatedCity = Object.assign({}, relocatedCityShift);
+    var objrelocatedCity = { country: relocatedCity[1] };
     var returnedRelocated = Object.assign(city1, objrelocatedCity);
     console.log(returnedRelocated);
     return returnedRelocated;
