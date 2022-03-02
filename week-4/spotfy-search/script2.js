@@ -6,13 +6,22 @@
     });
 
     //Function AJAX request__________________________________-
+    var isRequesting = false;
     function requestAjax(nextUrl) {
+        if (isRequesting || $("input").val() === "") {
+            return;
+        }
+
+        isRequesting = true;
         $.ajax({
             url: nextUrl,
             method: "GET",
             data: {
                 query: $("input").val(),
                 type: $("select").val(),
+            },
+            error: function (err) {
+                isRequesting = false;
             },
             success: function (data) {
                 data = data.albums || data.artists;
@@ -22,6 +31,7 @@
 
                 setNextUrl(data.next);
                 checkScrollPosition();
+                isRequesting = false;
             },
         });
     }
@@ -56,9 +66,13 @@
                 $(document).height() - $(window).height() - 500
             ) {
                 $(".more-button").hide();
+                return true;
             }
         }
+        return false;
     }
+
+    // console.log(isInBottomPage());
     function checkScrollPosition() {
         setTimeout(function () {
             if (isInBottomPage()) {
