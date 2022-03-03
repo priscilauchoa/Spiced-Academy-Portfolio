@@ -1,112 +1,119 @@
 (function () {
     var nextUrl = "https://spicedify.herokuapp.com/spotify";
-    $("input").on("focus", function () {
-        $("input").val("");
+
+    $("#submit-button").on("click", function () {
+        requestAjax(nextUrl);
     });
 
-    var res = null;
+    //Function AJAX request__________________________________-
+    var isRequesting = false;
+    function requestAjax(nextUrl) {
+        if (isRequesting || $("input").val() === "") {
+            return;
+        }
 
-    function requestAjax() {
-
-        
-        var userInput = $("input").val();
-        var artistOrAlbum = $("select").val();
-        return $.ajax({
+        isRequesting = true;
+        $.ajax({
             url: nextUrl,
+            method: "GET",
             data: {
-                query: userInput,
-                type: artistOrAlbum,
+                query: $("input").val(),
+                type: $("select").val(),
             },
-            success: function (response) {
-                res = response;
-                response = response.artists || response.albums;
-                var resultsHtml = "";
+            error: function (err) {
+                isRequesting = false;
+            },
+            success: function (data) {
+                data = data.albums || data.artists;
 
-                if (response.items.length == 0) {
-                    resultsHtml += "<h1>No results found</h1>";
-                } else {
-                    resultsHtml +=
-                        '<h1 class="results-for">Results for: "' +
-                        userInput +
-                        '"</h1>';
-                }
+                var html = generateResultsHtml(data.items);
+                $("#results-container").html(html);
 
-                for (var i = 0; i < response.items.length; i++) {
-                    var defaultImage = "./logo.png";
-
-                    if (response.items[i].images.length > 0) {
-                        defaultImage = response.items[i].images[0].url;
-                    }
-
-                    resultsHtml +=
-                        '<a href="' +
-                        response.items[i].external_urls.spotify +
-                        '"><div class="results-div"><p>' +
-                        response.items[i].name +
-                        '</p><img src="' +
-                        defaultImage +
-                        '" alt="some image" </a></div>';
-                }
-
-                if (resultsHtml.length < 0) {
-                    $(".results-container").html(resultsHtml);
-                } else {
-                    $(".results-container").append(resultsHtml);
-                    if ($(".results-container").hasClass(".results-for")) {
-                        $(".results-for").last().remove();
-                    }
-                    console.log($(".results-for").last());
-                }
-
-                if (response.next === null) {
-                    $(".more-button").css("visibility", "hidden");
-                }
-
-                // else {
-                //     $(".more-button").hide();
-                //     $(window).scroll(function () {
-                //         if (
-                //             $(window).scrollTop() >=
-                //             $(document).height() -
-                //                 $(window).height() -
-                //                 100
-                //         ) {
-                //             requestAjax(nextUrl);
-                //         }
-                //     });
-                // }
+                setNextUrl(data.next);
+                checkScrollPosition();
+                isRequesting = false;
             },
         });
     }
 
-    $(".submit-button").on("click", function () {
-        requestAjax();
-    });
+    // $("#more").on("click", function () {
+    //     $.ajax({
+    //         url: nextUrl,
+    //         method: "GET",
+    //         success: function (data) {
+    //             data = data.albums || data.artists;
 
-    $(window).scroll(function () {
-        console.log("### scroll");
+    //             // option #2 - you can call the generateResultsHtml function directly inside append
+    //             $("#results-container").append(generateResultsHtml(data.items));
 
+    //             setNextUrl(data.next);
+    //         },
+    //     });
+    // });
+
+    function setNextUrl(next) {
+        nextUrl =
+            next &&
+            next.replace(
+                "https://api.spotify.com/v1/search",
+                "https://spicedify.herokuapp.com/spotify"
+            );
+    }
+    function isInBottomPage() {
         if (location.search.indexOf("scroll=infinite")) {
-            if (!res) return;
-            $(".more-button").hide();
-            nextUrl =
-                res.next &&
-                res.next.replace(
-                    "api.spotify.com/v1/search",
-                    "spicedify.herokuapp.com/spotify"
-                );
-            // return; // TODO: remove return
             if (
                 $(window).scrollTop() >=
                 $(document).height() - $(window).height() - 500
             ) {
-                console.log("### timeout begin");
-                setTimeout(function () {
-                    console.log("### timeout done", nextUrl);
-
-                    requestAjax(nextUrl);
-                }, 500);
+                $(".more-button").hide();
+                return true;
             }
         }
-    });
+        return false;
+    }
+
+    // console.log(isInBottomPage());
+    function checkScrollPosition() {
+        setTimeout(function () {
+            if (isInBottomPage()) {
+                //  NOT WORKING -TO DO
+                requestAjax(nextUrl);
+            } else {
+                checkScrollPosition();
+            }
+        }, 1000);
+    }
+    checkScrollPosition();
+
+    function generateResultsHtml(items) {
+        var resultsHtml = "";
+        for (var i = 0; i < items.length; i++) {
+            var defaultImage = "./logo.png";
+
+            if (items[i].images.length > 0) {
+                defaultImage = items[i].images[0].url;
+            }
+
+            resultsHtml +=
+                '<a href="' +
+                items[i].external_urls.spotify +
+                '"><div class="results-div"><p>' +
+                items[i].name +
+                '</p><img src="' +
+                defaultImage +
+                '" alt="some image" </a></div>';
+        }
+
+        if (resultsHtml.length < 0) {
+            $(".results-container").html(resultsHtml);
+        } else {
+            $(".results-container").append(resultsHtml);
+
+            // if ($(".results-container").hasClass(".results-for")) {
+            //     $(".results-for").last().remove();
+
+            // console.log($(".results-for").last());
+        }
+        return resultsHtml;
+    }
 })();
