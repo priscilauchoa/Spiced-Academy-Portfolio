@@ -15,10 +15,9 @@ function logSizes(path) {
             items.forEach((item) => {
                 let nextPath = `${path}/${item.name}`;
                 if (item.isFile()) {
-                    // console.log(nextPath);
                     stat(nextPath, (err, stat) => {
                         if (err) {
-                            console.log("ERROR");
+                            console.log("🚫 ERROR 🚫", err);
                         } else {
                             console.log(`${nextPath}: ${stat.size}`);
                         }
