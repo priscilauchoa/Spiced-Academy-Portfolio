@@ -49,6 +49,7 @@
 //     console.log("8080 running");
 // });
 
+const chalk = require("chalk");
 const http = require("http");
 const qs = require("querystring");
 // const chalk = require("chalk");
@@ -99,14 +100,15 @@ const server = http.createServer((request, response) => {
             response.statusCode = 200;
             response.setHeader("content-type", "text/html");
             let parsedBody = qs.parse(body);
+            // console.log(colorMessage);
 
-            console.log("----->", parsedBody);
+            console.log(chalk[parsedBody.color](parsedBody.message));
 
             response.write(`
             <!doctype html>
                 <html>
                 <title>Colors</title>
-                <h1 style="color: ${parsedBody.color}">${parsedBody.message}</h1>
+                <a href='http://localhost:8080/'<h1 style="color: ${parsedBody.color}">${parsedBody.message}</h1>
                 </html>
              `);
 
