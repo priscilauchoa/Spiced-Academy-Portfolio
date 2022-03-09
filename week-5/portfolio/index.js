@@ -1,13 +1,8 @@
 const http = require("http");
-// const projectDirectory = __dirname + "/projects/";
 const path = require("path");
 const projectDirectory = path.join(__dirname, "projects");
 const fs = require("fs");
 const homePage = require("./homepage.js");
-
-console.log(projectDirectory);
-
-// req.url.replace("..", "");
 
 const contentType = {
     ".html": "text/html",
@@ -19,10 +14,10 @@ const contentType = {
     ".png": "image/png",
     ".svg": "image/svg+xml",
 };
+
 http.createServer((req, res) => {
     req.on("error", (err) => console.log(err));
     res.on("error", (err) => console.log(err));
-    // res.end("Hello Truffle");
 
     //________________________non GET request________________________
 
@@ -33,8 +28,14 @@ http.createServer((req, res) => {
     }
 
     //___________________________HOME PAGE___________________________
+
+    if (req.url.endsWith("/")) {
+        // Ensure req.url ends with a `/` else redirect
+        res.setHeader("Location", req.url + "/");
+        res.end();
+    }
     if (req.url === "/") {
-        res.end(homePage);
+        return res.end(homePage);
     }
 
     //_________________Construct the requested path_________________
@@ -52,26 +53,28 @@ http.createServer((req, res) => {
         }
 
         const extension = path.extname(requestedEntity);
-        for (const contType in contentType) {
-            if (contType == extension) {
-                res.setHeader("Content-Type", contentType[contType]);
-                // console.log(
-                //     "contentType ---->",
-                //     contType,
-                //     "extension",
-                //     extension
-                // );
-            }
-        }
 
         if (metaData.isFile()) {
+            //setheader
+            for (const contType in contentType) {
+                if (contType == extension) {
+                    res.setHeader("Content-Type", contentType[contType]);
+                    console.log(
+                        "contentType ---->",
+                        contType,
+                        "extension",
+                        extension
+                    );
+                }
+            }
+
             // read file
-        } else {
-            // send index.html inside of the directory
+            const readStream = fs.createReadStream(requestedEntity);
+            readStream.on("error", (error) => console.log(error));
+            readStream.pipe(res);
+
+            return res.end();
         }
-        fs.createReadStream(requestedEntity)
-            .on("error", (error) => console.log(error))
-            .pipe(res);
     });
 
     //_______________!!!!!🚫 Directory Traversal Attack 🚫!!!!!!_______________
@@ -80,14 +83,5 @@ http.createServer((req, res) => {
         res.statusCode = 403;
         return res.end();
     }
-
-    // fs.ReadStream.on("data", (chunk), => console.log("chunk", chunk))
-    // fs.readFile(requestedEntity, (err, content)=>{
-    //     if(err){
-    //         console.log(err);
-    //         return;
-    //     }
-    //     res.end(content);
-    // })
-}).listen(8080, () => console.log("Listening 8080...\n http://localhost:8080"));
+}).listen(8080, () => console.log("Listening http://localhost:8080"));
 //inlay hints
