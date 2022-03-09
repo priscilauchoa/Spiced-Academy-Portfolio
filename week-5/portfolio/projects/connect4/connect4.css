@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(233, 222, 222, 0.705);
+    margin: 150px;
+}
+
+.slot {
+    width: 100px;
+    height: 100px;
+}
+
+.hole {
+    transition: all 800ms ease-in;
+    width: 80px;
+    height: 80px;
+    border-radius: 30%;
+    background-color: rgb(245, 238, 32);
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+.player1 .hole {
+    background-image: url("./connect4.png");
+    background-size: cover;
+    border: green solid;
+    border-radius: 50%;
+    background-color: black;
+}
+.player2 .hole {
+    background-image: url("./1200px-Ampelmann_Rot.svg.png");
+    background-size: cover;
+    border: red solid;
+    border-radius: 50%;
+    background-color: black;
+}
+
+#board {
+    display: flex;
+    background-color: black;
+    padding: 10px;
+    border-radius: 53px;
+    box-shadow: 12px 12px 2px 1px rgba(61, 61, 65, 0.582);
+}
+
+.turn {
+    width: 100%;
+    margin: 47px 0px;
+}
+
+.turn img {
+    width: 100px;
+    height: 100px;
+    animation: roll 3s;
+    transform: rotate(0deg);
+}
+.container {
+    position: fixed;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url("./balao.gif");
+    background-color: white;
+    background-size: cover;
+    transition: 0.5s ease-in-out;
+}
+
+.container div {
+    display: flex;
+    justify-content: center;
+    transition: opacity 0.5s ease-in;
+    width: 100%;
+    text-align: center;
+}
+#winner {
+    margin-top: 50px;
+    transition-property: opacity, left, top, height;
+    transition-duration: 3s, 5s;
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    animation: roll 3s infinite;
+    transform: rotate(30deg);
+}
+
+@keyframes roll {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.winner-p {
+    font-size: 10em;
+    text-transform: uppercase;
+    margin-top: 310px;
+    color: rgb(66, 207, 120);
+}
+
+.no-winner {
+    visibility: hidden;
+    width: 500px;
+    font-size: 10em;
+    color: tomato;
+    text-transform: uppercase;
+    width: 100vw;
+}
+
+button {
+    margin: 73px;
+    padding: 50px;
+    border: 10px solid rgb(102, 214, 135);
+    text-transform: uppercase;
+    border-radius: 25px;
+    font-size: 29px;
+    color: green;
+    background-color: transparent;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: #b1f7b3; /* Green */
+    color: rgb(25, 68, 45);
+}

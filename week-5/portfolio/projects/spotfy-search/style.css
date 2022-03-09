@@ -1,0 +1,83 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: black;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    border-radius: 2px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+}
+
+#more-button {
+    visibility: hidden;
+    margin: 50px 0;
+}
+
+h1,
+h2 {
+    color: white;
+    font-weight: 100;
+    font-size: 20px;
+}
+.spotfy {
+    text-align: center;
+    width: 100%;
+}
+
+.spotfy > img {
+    width: 357px;
+}
+
+.div-spotify {
+    display: flex;
+    justify-content: space-around;
+    margin: 50px 0;
+}
+
+input {
+    width: 280px;
+    height: 26px;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.search-fields {
+    display: flex;
+    justify-content: space-between;
+    width: 430px;
+}
+
+select {
+    border-radius: 14px;
+    padding: 4px;
+}
+
+#submit-button {
+    background-color: black;
+    border-radius: 10px;
+    padding: 0 10px;
+    color: white;
+    border: solid rgb(27, 178, 107);
+}
+
+.results-div {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    align-items: flex-start;
+    width: 80%;
+}
