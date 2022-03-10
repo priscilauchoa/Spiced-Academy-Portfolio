@@ -1,4 +1,4 @@
-const { fs } = require("fs");
+const fs = require("fs");
 
 function generateHomePage() {
     // 1) Pick up the content of your projects directory with fs.readdirSync() (start with         the sync version!)
@@ -12,7 +12,8 @@ function generateHomePage() {
     let page = `<h1>Projects</h1><ul>`;
 
     listOfProjects.forEach((file) => {
-        page += `</li>${file.name}</li></ul>`;
+        console.log(file.name);
+        page += `<a href="${file.name}/index.html" </li>${file.name}</li></br></ul>>`;
     });
     return page;
 }

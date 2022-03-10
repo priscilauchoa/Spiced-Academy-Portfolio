@@ -24,23 +24,28 @@ http.createServer((req, res) => {
     if (req.method !== "GET") {
         // set status code
         res.statusCode = 405;
-        return;
+        return res.end();
+    }
+    //_________________Construct the requested path_________________
+
+    const requestedEntity = path.join(projectDirectory, req.url);
+
+    //_______________!!!!!🚫 Directory Traversal Attack 🚫!!!!!!_______________
+
+    if (!requestedEntity.startsWith(projectDirectory)) {
+        res.statusCode = 403;
+        return res.end();
     }
 
     //___________________________HOME PAGE___________________________
-
-    if (req.url.endsWith("/")) {
+    if (req.url === "/" || req.url === "") {
+        // console.log("req == / or not");
+        return res.end(homePage.generateHomePage());
+    } else if (req.url.endsWith("/")) {
         // Ensure req.url ends with a `/` else redirect
         res.setHeader("Location", req.url + "/");
         res.end();
     }
-    if (req.url === "/") {
-        return res.end(homePage);
-    }
-
-    //_________________Construct the requested path_________________
-
-    const requestedEntity = path.join(projectDirectory, req.url);
 
     //_______________ Check Entity Exists _______________
 
@@ -58,30 +63,21 @@ http.createServer((req, res) => {
             //setheader
             for (const contType in contentType) {
                 if (contType == extension) {
-                    res.setHeader("Content-Type", contentType[contType]);
-                    console.log(
-                        "contentType ---->",
-                        contType,
-                        "extension",
-                        extension
-                    );
+                    res.setHeader("Content-Type", contentType[extension]);
+                    // console.log(
+                    //     "contentType ---->",
+                    //     contType,
+                    //     "extension",
+                    //     extension
+                    // );
                 }
             }
 
             // read file
             const readStream = fs.createReadStream(requestedEntity);
             readStream.on("error", (error) => console.log(error));
-            readStream.pipe(res);
-
-            return res.end();
+            readStream.pipe(res); // send your files in parts
         }
     });
-
-    //_______________!!!!!🚫 Directory Traversal Attack 🚫!!!!!!_______________
-
-    if (!requestedEntity.startsWith(projectDirectory)) {
-        res.statusCode = 403;
-        return res.end();
-    }
 }).listen(8080, () => console.log("Listening http://localhost:8080"));
 //inlay hints
