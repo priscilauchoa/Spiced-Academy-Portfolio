@@ -19,6 +19,10 @@ http.createServer((req, res) => {
     req.on("error", (err) => console.log(err));
     res.on("error", (err) => console.log(err));
 
+    if (Math.random > 0.5) {
+        throw new Error("error ops");
+    }
+
     //________________________non GET request________________________
 
     if (req.method !== "GET") {
