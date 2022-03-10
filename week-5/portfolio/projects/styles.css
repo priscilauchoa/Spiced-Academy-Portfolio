@@ -1,0 +1,34 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(228, 213, 241);
+    width: 80%;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-decoration: none;
+    font-size: 2em;
+}
+
+a {
+    text-decoration: none;
+    text-align: left;
+}
+
+h1 {
+    font-size: 3em;
+    color: rgb(81, 29, 141);
+}
+
+img {
+    width: 100px;
+}

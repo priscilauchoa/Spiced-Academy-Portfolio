@@ -5,12 +5,15 @@ function generateHomePage() {
         withFileTypes: true,
     });
 
-    let page = `<h1>Projects</h1><ul>`;
+    let page = `<head><link rel="stylesheet" href="./styles.css"></head><body><div><h1>Projects</h1></div><section>`;
 
     listOfProjects.forEach((file) => {
-        console.log(file.name);
-        page += `<a href="${file.name}/index.html"</li>${file.name}</li></br></br></ul>`;
+        if (file.name !== "styles.css") {
+            page += `<li><a href="${file.name}/index.html">${file.name}</a></li>`;
+        }
     });
+    page += `</section></body>`;
+
     return page;
 }
 
