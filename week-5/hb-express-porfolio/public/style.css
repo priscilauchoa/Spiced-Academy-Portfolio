@@ -4,10 +4,6 @@ img {
     border-radius: 50%;
 }
 
-* {
-    margin: 10px;
-}
-
 body {
     background: linear-gradient(
         360deg,
@@ -24,10 +20,11 @@ body {
 
 ul {
     display: flex;
-    width: 60%;
+    width: 80%;
     justify-content: center;
-    align-items: center;
+    align-content: center;
     flex-wrap: wrap;
+    margin: auto;
 }
 li {
     margin: 20px;
@@ -36,6 +33,21 @@ li {
 .projects {
     margin: 60px 0;
     display: flex;
+
     justify-content: center;
-    align-items: center;
+    align-content: center;
+}
+
+nav > a {
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+    margin: 60px;
+    text-align: end;
+}
+
+h1 {
+    color: white;
+    margin-top: 80px;
+    text-align: center;
 }
