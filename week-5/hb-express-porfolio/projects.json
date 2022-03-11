@@ -1,0 +1,18 @@
+[
+    {
+        "title": "Connect 4",
+        "directory": "connect4"
+    },
+    {
+        "title": "Canvas",
+        "directory": "canvas"
+    },
+    {
+        "title": "Spotify",
+        "directory": "spotfy"
+    },
+    {
+        "title": "Slide",
+        "directory": "slide"
+    }
+]
