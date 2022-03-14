@@ -1,0 +1,9 @@
+ <ul>
+    {{#projects}}
+        <div class="projects">
+            <a href="/{{directory}}/index.html"><img src="/{{directory}}/screenshoot.png" />
+            <a href="/{{directory}}/index.html"><li>{{title}}</li></a>
+        </div>
+  <p>  {{#if ../p}} {{description}} {{/if}}</p>
+    {{/projects}}
+</ul>

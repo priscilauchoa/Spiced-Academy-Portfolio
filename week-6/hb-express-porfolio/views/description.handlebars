@@ -1,0 +1,26 @@
+
+<h1>🌈 WELCOME TO MY DESCRIPTION PAGE 🌈</h1>
+<section class="container">
+    <div class="menu-projects">
+        <ul class="ul-project">
+        {{#projects}}
+            <div class="">
+                <a href="/projects/{{directory}}"><li>{{title}}</li></a>
+            </div>
+        {{/projects}}
+    </ul>
+
+    </div>
+
+    <div class="container-2">
+        <div class="current-project">
+            {{#selectedProject}}
+            <a href="/{{directory}}/index.html"><img class="img-descr" src="/{{directory}}/bigscreen.png" />
+            <a href="/{{directory}}/index.html"><p class="p-descr">{{title}}</p></a>
+
+            <p class="p-descr">{{description}}</p> 
+        
+            {{/selectedProject}}
+        </div>
+    </div>
+</section>
