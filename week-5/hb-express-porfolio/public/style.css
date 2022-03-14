@@ -5,6 +5,7 @@ img {
 }
 
 body {
+    text-align: center;
     background: linear-gradient(
         360deg,
         rgba(255, 0, 0, 0.137),
@@ -13,7 +14,7 @@ body {
         rgba(0, 128, 0, 0.5),
         rgba(0, 0, 255, 0.293),
         rgba(76, 0, 130, 0.273),
-        rgba(238, 130, 238, 0.507),
+        rgba(238, 130, 238, 0.307),
         rgba(255, 0, 0, 0.473)
     );
 }
@@ -28,21 +29,32 @@ ul {
 }
 li {
     margin: 20px;
+    list-style-type: none;
+    text-align: center;
 }
 
 .projects {
-    margin: 60px 0;
+    margin: 60px;
     display: flex;
-
     justify-content: center;
     align-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+nav {
+    text-align: end;
+    margin: 30px;
+}
+nav > a {
+    color: white;
 }
 
-nav > a {
+a {
     font-size: 25px;
     text-decoration: none;
-    color: white;
-    margin: 60px;
+    text-align: center;
+    color: blueviolet;
+    margin: 20px;
     text-align: end;
 }
 
@@ -50,4 +62,10 @@ h1 {
     color: white;
     margin-top: 80px;
     text-align: center;
+}
+
+footer {
+    margin: 30px;
+    color: blueviolet;
+    font-size: 20px;
 }
