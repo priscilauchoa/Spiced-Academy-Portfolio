@@ -17,10 +17,8 @@ app.get("/headlines.json", function (req, res) {
                 if (err) {
                     res.sendStatus(500);
                 } else {
-                    console.log("tweets--->", tweets);
+                    res.json(formatTweets(tweets));
                 }
-                // formatTweets();
-                // res.json(tweets);
             });
         }
     });

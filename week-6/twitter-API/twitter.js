@@ -61,35 +61,31 @@ exports.getTweets = function (token, callback) {
                     try {
                         body = JSON.parse(body);
                         callback(null, body);
-                        
                     } catch (err) {
                         callback(err);
                     }
                 });
+                res.on("error", callback);
             }
-            callback(null, "getTweets status code 200");
         }
     );
-    req.end("full_text");
+    req.end();
 };
-exports.formatTweets = function () {};
-
-// const req = https.request(
-//     {
-//         method: "GET",
-//         host: "spicedify.herokuapp.com",
-//         path: "/spotify?q=ladygaga&type=artist&limit=1",
-//     },
-//     (res) => {
-//         console.log(res.statusCode);
-//         console.log(res.headers);
-//         let body = "";
-//         res.on("data", (chunk) => (body += chunk))
-//             .on("end", () => console.log(body))
-//             .on("error", (err) => console.log(err));
-//     }
-// );
-
-// a post request é pra enviar as credentials
-
-// req.end();
+exports.formatTweets = function (tweets) {
+    // for (const property in tweets) {
+    //     console.log("property --->>>", property);
+    // }
+    const listTweets = [];
+    for (let i = 0; i < tweets.length; i++) {
+        let urls = tweets[i].entities.urls[0].url;
+        let text = tweets[i].full_text;
+        const index = text.indexOf("https");
+        console.log(index);
+        // text.slice(index, text.length - 1);
+        const newText = text.slice(0, index);
+        if (tweets[i].entities.urls.length <= 1) {
+            listTweets.push({ text: newText, url: urls });
+        }
+    }
+    return listTweets;
+};
