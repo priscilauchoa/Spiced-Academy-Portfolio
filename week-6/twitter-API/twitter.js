@@ -6,7 +6,7 @@ const { key, secret } = require("./secrets.json");
 const authorization = `Basic ${Buffer.from(key + ":" + secret).toString(
     "base64"
 )}`;
-console.log(authorization);
+// console.log(authorization);
 
 exports.getToken = function (callback) {
     const req = https.request(
@@ -34,8 +34,8 @@ exports.getToken = function (callback) {
                         callback(err);
                     }
                 });
+                res.on("error", callback);
             }
-            callback(null, "getToken status code 200");
         }
     );
     req.end("grant_type=client_credentials");
@@ -60,6 +60,7 @@ exports.getTweets = function (token, callback) {
                 res.on("end", () => {
                     try {
                         body = JSON.parse(body);
+                        // console.log("body tweets", body.length);
                         callback(null, body);
                     } catch (err) {
                         callback(err);
@@ -75,13 +76,12 @@ exports.formatTweets = function (tweets) {
     // for (const property in tweets) {
     //     console.log("property --->>>", property);
     // }
+    // console.log("tweets in format: ", tweets);
     const listTweets = [];
     for (let i = 0; i < tweets.length; i++) {
         let urls = tweets[i].entities.urls[0].url;
         let text = tweets[i].full_text;
         const index = text.indexOf("https");
-        console.log(index);
-        // text.slice(index, text.length - 1);
         const newText = text.slice(0, index);
         if (tweets[i].entities.urls.length <= 1) {
             listTweets.push({ text: newText, url: urls });

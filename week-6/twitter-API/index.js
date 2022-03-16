@@ -1,27 +1,26 @@
 const express = require("express");
 const app = express();
-const { getToken, getTweets, formatTweets } = require("./twitter.js");
-
+let { getToken, getTweets, formatTweets } = require("./twitter.js");
+let { promisify } = require("util");
 app.use(express.static("./public"));
 
-app.get("/headlines.json", function (req, res) {
-    getToken(function (err, token) {
-        if (err) {
-            //error
-            res.sendStatus(500);
-        } else {
-            console.log("token----> ", token);
+getToken = promisify(getToken);
 
-            //i have token
-            getTweets(token, (err, tweets) => {
-                if (err) {
-                    res.sendStatus(500);
-                } else {
-                    res.json(formatTweets(tweets));
-                }
-            });
-        }
-    });
+getTweets = promisify(getTweets);
+
+app.get("/headlines.json", function (req, res) {
+    getToken()
+        .then((token) => {
+            // console.log("token: ", token);
+            return getTweets(token);
+        })
+        .then((tweets) => {
+            // console.log("tweets in tweets: ", tweets);
+            res.json(formatTweets(tweets));
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 app.listen(8080, () => console.log("listening 8080"));
