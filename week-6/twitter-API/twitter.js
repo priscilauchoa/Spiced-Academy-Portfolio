@@ -41,7 +41,7 @@ exports.getToken = function (callback) {
     req.end("grant_type=client_credentials");
 };
 
-exports.getTweets = function (token, callback) {
+exports.getTweets = function (token, nameUser, callback) {
     const req = https.request(
         {
             method: "GET",
@@ -49,7 +49,7 @@ exports.getTweets = function (token, callback) {
                 authorization: `Bearer ${token}`,
             },
             host: "api.twitter.com",
-            path: "/1.1/statuses/user_timeline.json?tweet_mode=extended&screen_name=theonion",
+            path: `/1.1/statuses/user_timeline.json?tweet_mode=extended&screen_name=${nameUser}`,
         },
         function (res) {
             if (res.statusCode !== 200) {
@@ -73,19 +73,29 @@ exports.getTweets = function (token, callback) {
     req.end();
 };
 exports.formatTweets = function (tweets) {
-    // for (const property in tweets) {
-    //     console.log("property --->>>", property);
-    // }
-    // console.log("tweets in format: ", tweets);
+    const newTweets = tweets.flat();
+    // console.log(newTweets);
+
     const listTweets = [];
-    for (let i = 0; i < tweets.length; i++) {
-        let urls = tweets[i].entities.urls[0].url;
-        let text = tweets[i].full_text;
+    for (let i = 0; i < newTweets.length; i++) {
+        let text = newTweets[i].full_text;
+        let user = newTweets[i].user.name;
+        let date = newTweets[i].created_at;
+
         const index = text.indexOf("https");
         const newText = text.slice(0, index);
-        if (tweets[i].entities.urls.length <= 1) {
-            listTweets.push({ text: newText, url: urls });
+        if (newTweets[i].entities.urls.length == 1) {
+            let urls = newTweets[i].entities.urls[0].url;
+            listTweets.push({
+                Text: newText,
+                Url: urls,
+                User: user,
+                Date: date,
+            });
         }
+        listTweets.sort((a, b) => {
+            return new Date(a.created_at) - new Date(b.created_at);
+        });
     }
     return listTweets;
 };
