@@ -1,4 +1,4 @@
-const countries = require("./countries");
+
 const { find } = require("./countries");
 
 test("passing an empty string and return empty array", () => {
@@ -12,7 +12,7 @@ test("Passing four matches", () => {
 });
 
 test("Check if search is case insensitive", () => {
-    const found = find("BrA");
+    const found = find("BrAzIL");
     // expect(found.length).toBe(1);
     expect(found).toEqual(["Brazil"]);
 });

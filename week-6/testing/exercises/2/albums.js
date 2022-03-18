@@ -11,19 +11,3 @@ exports.getAlbumNames = function (q) {
         return albumNames;
     });
 };
-let name = "Fear of the dark";
-let data = {
-    albums: {
-        items: [
-            {
-                name: "Hi",
-            },
-            {
-                name: name,
-            },
-            {
-                name,
-            }
-        ],
-    },
-};
