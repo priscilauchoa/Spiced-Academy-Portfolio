@@ -11,7 +11,7 @@
 .container input{
     width: 50%;
     padding: 24px;
-    background-color:aquamarine;
+    background-color:rgba(127, 255, 212, 0.193);
     border-radius: 5px;
     border: none;
     font-size: 16px;
@@ -32,4 +32,24 @@
 
 .container button:hover {
     filter: brightness(0.9);
+}
+
+.container header {
+    width: 50%;
+    margin: 84px 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container header div {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 7px;
 }

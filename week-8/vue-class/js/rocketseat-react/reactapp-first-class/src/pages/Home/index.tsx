@@ -1,23 +1,44 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './style.css'
 import { Card } from '../../components/Card'
 
 export function Home() {
-  const [student, setStudent] = useState<string>()
+  const [studentName, setStudentName] = useState<string>()
+  const [students, setStudents] = useState<{name: string}[]>([])
+  const [user, setUser] = useState<{name: string, avatar: string}[]>([])
 
+  useEffect(() => {
+    fetch("https://api.github.com/users/priscilauchoa")
+      .then(resp => resp.json())
+      .then(data => {
+        setUser({
+          name: data.name,
+          avatar: data.avatar_url
+       })
+      })
+  }, [students])
+
+// name: string, age: number
   function handleNameChange(name: string) {
-    setStudent(name)
-    console.log(name)
+    setStudentName(name)
+  }
+  function handleAddStudent(name: string) {
+    const newStudent = { name: studentName }
+
+    setStudents(prevState => [...prevState, newStudent])
   }
 
   return (
     <div className='container'>
-      <h1>Attendence List</h1>
-      <h1>Name: {student}</h1>
-      <Card text='Priscila Flores' age={30}/>
-      <Card text='Jaime Flores' age={34}/>
+      <header> <h1>Attendence List</h1>
+        <div> <strong>{ user.name}</strong>
+        <img className='avatar' src={user.avatar} /></div>
+      </header>
       <input type="text" placeholder='Name' onChange={e => handleNameChange(e.target.value)}></input>
-      <button>Submit</button>
+      <button onClick={handleAddStudent}>Add student</button>
+
+        {students.map(student =><Card key={Math.random()} text={student.name}/>)
+ }
     </div>
   )
 }
