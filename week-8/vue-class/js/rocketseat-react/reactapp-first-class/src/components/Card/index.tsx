@@ -1,3 +1,5 @@
+import './style.css'
+
 type Card = {
   text: string;
   age: number
@@ -5,7 +7,7 @@ type Card = {
 
 export function Card({ text = '', age = 0}: Card) {
   return (
-    <div>
+    <div className="card">
       <strong>{text}</strong>
       <br></br>
       <small>{age} years old</small>
