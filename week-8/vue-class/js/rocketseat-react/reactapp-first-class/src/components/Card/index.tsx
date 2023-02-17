@@ -1,11 +1,11 @@
 import './style.css'
 
-type Card = {
+type CardProps = {
   text: string;
   age: number
 }; 
 
-export function Card({ text = '', age = 0}: Card) {
+export function Card({ text = '', age = 0}: CardProps) {
   return (
     <div className="card">
       <strong>{text}</strong>
