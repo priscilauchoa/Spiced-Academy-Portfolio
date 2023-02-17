@@ -1,23 +1,31 @@
 <script setup>
 
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
-const email = ref('')
-const password = ref('')
+
+const user = reactive({
+    email: '',
+    password: ''
+})
 
 function login() {
-        console.log(email.value, password.value)
+        console.log(user.email, user.password, user)
     }
 </script>
 
 <template>
 
-    {{ email }}
+    {{ user.email }}
+    {{ 
+        user.password
+     }}
+
+     <template v-if="user.email.length <= 0" >Email empty</template>
     <form action="" v-on:submit.prevent="login">
-    <input type="text" placeholder="email" v-model="email">
+    <input type="text" placeholder="email" v-model="user.email">
     
 
-    <input type="text" placeholder="password" v-model="password">
+    <input type="text" placeholder="password" v-model="user.password">
     <button type="submit">Submit</button>
     </form>
 </template>
