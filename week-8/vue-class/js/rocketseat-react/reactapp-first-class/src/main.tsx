@@ -1,19 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Home } from './pages/Home'
+import './styles/global.css'
 
-interface IUser {
-  name: string,
-  email: string
-}
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <Home />
+  </React.StrictMode>,
+)
 
-function Home() {
-  const [users, setUsers] = useState<IUser[]>([])
 
-    
-  return (
-    <div className="Home">
-      <Home />
-    </div>
-  );
-}
-
-export default Home;
