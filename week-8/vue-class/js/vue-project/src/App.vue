@@ -7,8 +7,6 @@ import Menu from '@/components/Menu.vue'
   <header>
     <Menu />
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
      
     </div>
   </header>
