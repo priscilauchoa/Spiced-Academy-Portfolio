@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "tw": "npx tailwindcss -i ./src/assets/tailwind.css -o ./src/assets/dist/build.css --watch",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -21,6 +22,7 @@
     "@vue/test-utils": "^2.2.6",
     "eslint-plugin-vue": "^9.3.0",
     "jsdom": "^20.0.3",
+    "tailwindcss": "^3.2.7",
     "vite": "^4.0.0",
     "vitest": "^0.25.6"
   }

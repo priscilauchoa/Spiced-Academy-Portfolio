@@ -3,6 +3,6 @@
 
 <template>
   <main>
-    <h2>Home</h2>
+    <h2 class="text-3xl font-bold underline">Home</h2>
   </main>
 </template>

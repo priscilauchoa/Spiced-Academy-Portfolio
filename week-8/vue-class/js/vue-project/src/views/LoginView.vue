@@ -14,7 +14,7 @@ function login() {
 </script>
 
 <template>
-
+<h1 class="text-blue font-bold text-3xl">Login</h1>
     {{ user.email }}
     {{ 
         user.password
